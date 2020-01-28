@@ -79,7 +79,7 @@ const Nav = () => {
 			return false;
 		}
 
-		if ( context.state.showFree ) {
+		if ( ( AGWP.license.status !== 'valid' ) && context.state.showFree ) {
 			items = items.filter( t => t.is_pro !== true );
 		}
 

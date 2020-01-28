@@ -191,7 +191,7 @@ class Filters extends React.Component {
 								</button>
 							) }
 
-							{ this.context.state.hasPro && (
+							{ ( AGWP.license.status !== 'valid' ) && this.context.state.hasPro && (
 								<ToggleControl
 									label={ __( 'Show Pro Templates' ) }
 									checked={ ! this.context.state.showFree }

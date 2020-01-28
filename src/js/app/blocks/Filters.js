@@ -167,16 +167,18 @@ export default class Filters extends React.Component {
 						</button>
 					) }
 
-					<ToggleControl
-						label={ __( 'Show Pro Blocks' ) }
-						checked={ ! this.context.state.showFree }
-						className="pro-toggle"
-						onChange={ () => {
-							this.context.dispatch( {
-								showFree: ! this.context.state.showFree,
-							} );
-						} }
-					/>
+					{ ( AGWP.license.status !== 'valid' ) &&
+						<ToggleControl
+							label={ __( 'Show Pro Blocks' ) }
+							checked={ ! this.context.state.showFree }
+							className="pro-toggle"
+							onChange={ () => {
+								this.context.dispatch( {
+									showFree: ! this.context.state.showFree,
+								} );
+							} }
+						/>
+					}
 
 					{ ! showingCategory && ! this.context.state.showing_favorites && (
 						<ToggleControl

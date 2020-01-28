@@ -427,7 +427,7 @@ class Templates extends React.Component {
 						} ) }
 					>
 						{ ! this.context.state.isOpen && this.context.state.count >= 1 && this.context.state.templates.map( template => {
-							if ( this.context.state.showFree && Boolean( template.is_pro ) ) {
+							if ( ( AGWP.license.status !== 'valid' ) && this.context.state.showFree && Boolean( template.is_pro ) ) {
 								return;
 							}
 
