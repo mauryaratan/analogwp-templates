@@ -22,6 +22,11 @@
 
 .ang .forminp-button {
 	padding: 0 0 15px;
+	padding-top: 8px;
+}
+
+.ang .forminp-multiselect select {
+	max-width: 100%;
 }
 
 .ang .collapsible {
