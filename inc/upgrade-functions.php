@@ -21,123 +21,129 @@ use Analog\Options;
  *
  * @return void
  */
-function do_automatic_upgrades() {
-	$did_upgrade       = false;
-	$installed_version = Options::get_instance()->get( 'version' );
+function do_automatic_upgrades($response, $hook_extra, $result) {
 
-	if ( version_compare( $installed_version, ANG_VERSION, '<' ) ) {
-		// Let us know that an upgrade has happened.
-		$did_upgrade = true;
-	}
+	if ((stripos($hook_extra['plugin'], 'analogwp-templates') !== false)) {
+		$did_upgrade       = false;
+		$installed_version = Options::get_instance()->get( 'version' );
 
-	if ( version_compare( $installed_version, '1.2', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.2.1', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.3', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.3.8', '<' ) ) {
-		ang_v138_upgrades();
-	}
-
-	if ( version_compare( $installed_version, '1.3.10', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.3.12', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.3.13', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.3.14', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.3.15', '<' ) ) {
-		version_1_3_15_upgrades();
-	}
-
-	if ( version_compare( $installed_version, '1.3.16', '<' ) ) {
-		$kit = get_option( 'elementor_ang_global_kit' );
-		Options::get_instance()->set( 'global_kit', $kit );
-
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.3.17', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.4.0', '<' ) ) {
-		$global_kit = Options::get_instance()->get( 'global_kit' );
-
-		// Trigger a post save on global kit, so all associated posts can be updated.
-		if ( $global_kit && '' !== $global_kit ) {
-			wp_update_post(
-				array(
-					'ID'           => $global_kit,
-					'post_content' => 'Updated.',
-				)
-			);
+		if ( version_compare( $installed_version, ANG_VERSION, '<' ) ) {
+			// Let us know that an upgrade has happened.
+			$did_upgrade = true;
 		}
 
-		Utils::clear_elementor_cache();
+		if ( version_compare( $installed_version, '1.2', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.2.1', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.3', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.3.8', '<' ) ) {
+			ang_v138_upgrades();
+		}
+
+		if ( version_compare( $installed_version, '1.3.10', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.3.12', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.3.13', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.3.14', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.3.15', '<' ) ) {
+			version_1_3_15_upgrades();
+		}
+
+		if ( version_compare( $installed_version, '1.3.16', '<' ) ) {
+			$kit = get_option( 'elementor_ang_global_kit' );
+			Options::get_instance()->set( 'global_kit', $kit );
+
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.3.17', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.4.0', '<' ) ) {
+			$global_kit = Options::get_instance()->get( 'global_kit' );
+
+			// Trigger a post save on global kit, so all associated posts can be updated.
+			if ( $global_kit && '' !== $global_kit ) {
+				wp_update_post(
+					array(
+						'ID'           => $global_kit,
+						'post_content' => 'Updated.',
+					)
+				);
+			}
+
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.5.0', '<' ) ) {
+			version_1_5_upgrades();
+		}
+
+		if ( version_compare( $installed_version, '1.5.1', '<' ) ) {
+			version_1_5_1_upgrades();
+		}
+
+		if ( version_compare( $installed_version, '1.5.6', '<' ) ) {
+			Options::get_instance()->set( 'ang_sync_colors', false );
+		}
+
+		if (
+			version_compare( $installed_version, '1.6.0', '<' )
+			&& ! Options::get_instance()->get( 'theme_style_kit_migrated' )
+		) {
+			version_1_6_0_upgrades();
+
+			// Redirect to onboarding page.
+			wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
+			exit;
+		}
+
+		if ( version_compare( $installed_version, '1.6.3', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.6.6', '<' ) ) {
+			version_1_6_6_upgrades();
+		}
+
+		if ( version_compare( $installed_version, '1.6.7', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( version_compare( $installed_version, '1.6.8', '<' ) ) {
+			Utils::clear_elementor_cache();
+		}
+
+		if ( $did_upgrade ) {
+			// Bump version.
+			Options::get_instance()->set( 'version', ANG_VERSION );
+		}
 	}
 
-	if ( version_compare( $installed_version, '1.5.0', '<' ) ) {
-		version_1_5_upgrades();
-	}
-
-	if ( version_compare( $installed_version, '1.5.1', '<' ) ) {
-		version_1_5_1_upgrades();
-	}
-
-	if ( version_compare( $installed_version, '1.5.6', '<' ) ) {
-		Options::get_instance()->set( 'ang_sync_colors', false );
-	}
-
-	if (
-		version_compare( $installed_version, '1.6.0', '<' )
-		 && ! Options::get_instance()->get( 'theme_style_kit_migrated' )
-	) {
-		version_1_6_0_upgrades();
-
-		// Redirect to onboarding page.
-		wp_safe_redirect( admin_url( 'admin.php?page=analog_onboarding' ) );
-		exit;
-	}
-
-	if ( version_compare( $installed_version, '1.6.3', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.6.6', '<' ) ) {
-		version_1_6_6_upgrades();
-	}
-
-	if ( version_compare( $installed_version, '1.6.7', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( version_compare( $installed_version, '1.6.8', '<' ) ) {
-		Utils::clear_elementor_cache();
-	}
-
-	if ( $did_upgrade ) {
-		// Bump version.
-		Options::get_instance()->set( 'version', ANG_VERSION );
-	}
+	return $response;
 }
-add_action( 'admin_init', __NAMESPACE__ . '\do_automatic_upgrades' );
+
+add_filter('upgrader_post_install', __NAMESPACE__ . '\do_automatic_upgrades', 20, 3);
 
 /**
  * Check if a string ends with certain characters.
