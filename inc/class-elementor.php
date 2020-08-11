@@ -87,10 +87,49 @@ class Elementor {
 	 * @return void
 	 */
 	public function enqueue_editor_scripts() {
+
+		// Independent components.
+		wp_enqueue_style( 'analogwp-components-css', ANG_PLUGIN_URL . 'assets/css/sk-components.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-components.css' ) );
+
+		// Blocks Library.
+		do_action( 'ang_loaded_blocks' );
+
+		wp_enqueue_style( 'analogwp-blocks-css', ANG_PLUGIN_URL . 'assets/css/blocks-library.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/blocks-library.css' ) );
+
+		wp_enqueue_script(
+			'analogwp-blocks-app',
+			ANG_PLUGIN_URL . 'assets/js/blocksLibrary.js',
+			array(
+				'react',
+				'react-dom',
+				'jquery',
+				'wp-components',
+				'wp-hooks',
+				'wp-i18n',
+				'wp-element',
+				'wp-api-fetch',
+				'wp-html-entities',
+			),
+			filemtime( ANG_PLUGIN_DIR . 'assets/js/blocksLibrary.js' ),
+			true
+		);
+		wp_set_script_translations( 'analogwp-blocks-app', 'ang' );
+
+		$i10n = apply_filters( // phpcs:ignore
+			'analog/blocks_app/strings',
+			array(
+				'is_dashboard_page'  => false,
+			)
+		);
+
+		wp_localize_script( 'analogwp-blocks-app', 'AGWP', $i10n );
+
+		// SK Library.
 		do_action( 'ang_loaded_templates' );
 
 		wp_enqueue_script( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/js/elementor-modal.js', array( 'jquery' ), filemtime( ANG_PLUGIN_DIR . 'assets/js/elementor-modal.js' ), false );
 		wp_enqueue_style( 'analogwp-elementor-modal', ANG_PLUGIN_URL . 'assets/css/elementor-modal.css', array( 'dashicons' ), filemtime( ANG_PLUGIN_DIR . 'assets/css/elementor-modal.css' ) );
+		wp_enqueue_style( 'ang-sk-main', ANG_PLUGIN_URL . 'assets/css/sk-main.css', array(), filemtime( ANG_PLUGIN_DIR . 'assets/css/sk-main.css' ) );
 
 		wp_enqueue_script(
 			'analogwp-app',
