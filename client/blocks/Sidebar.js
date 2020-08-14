@@ -184,18 +184,28 @@ const Sidebar = ( { state } ) => {
 
 	const onSelect = ( tab ) => {
 		state.dispatch( { tab } );
-		context.dispatch( { blocks: filteredBlocks } );
+
+		let selectFilteredBlocks = filteredBlocks;
+
 		if ( tab === 'favorites' ) {
-			context.dispatch( { blocks: favoriteBlocks } );
+			selectFilteredBlocks = favoriteBlocks;
 		}
 		if ( tab !== 'favorites' && tab !== 'all-blocks' ) {
-			filteredBlocks = context.state.blockArchive.filter( block => block.tags.indexOf( tab ) > -1 );
-			context.dispatch( { blocks: filteredBlocks } );
+			selectFilteredBlocks = context.state.blockArchive.filter( block => block.tags.indexOf( tab ) > -1 );
 		}
+
+		const { blocksSearchInput } = context.state;
+
+		if ( blocksSearchInput ) {
+			selectFilteredBlocks = context.state.itemFilteredWithSearchTerm( selectFilteredBlocks, blocksSearchInput );
+		}
+
+		context.dispatch( { blocks: selectFilteredBlocks } );
 	}
 
 	const getItemCount = ( tab ) => {
 		const blocks = context.state.blockArchive;
+		const { blocksSearchInput } = context.state;
 		let foundItems = [];
 
 		if ( tab === 'all-blocks' ) {
@@ -207,6 +217,14 @@ const Sidebar = ( { state } ) => {
 
 		if ( tab !== 'all-blocks' && tab !== 'favorites' ) {
 			foundItems = blocks.filter( block => block.tags.indexOf( tab ) > -1 );
+		}
+
+		if ( AGWP.license.status !== 'valid' && context.state.showFree ) {
+			foundItems = foundItems.filter( block => !block.is_pro );
+		}
+
+		if ( blocksSearchInput ) {
+			foundItems = context.state.itemFilteredWithSearchTerm( foundItems, blocksSearchInput );
 		}
 
 		if ( foundItems ) {

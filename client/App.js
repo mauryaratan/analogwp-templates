@@ -165,6 +165,20 @@ class App extends React.Component {
 			settings: {
 				ang_sync_colors: true,
 			},
+			blocksSearchInput: '',
+			itemFilteredWithSearchTerm: function( foundItems, searchInput ) {
+				let searchTags = [];
+				return foundItems.filter( single => {
+					if ( single.tags ) {
+						searchTags = single.tags.filter( tag => {
+							return tag.toLowerCase().includes( searchInput );
+						} );
+					}
+					return (
+						single.title.toLowerCase().includes( searchInput ) || searchTags.length >= 1
+					);
+				} );
+			}
 		};
 
 		this.refreshAPI = this.refreshAPI.bind( this );
@@ -335,6 +349,7 @@ class App extends React.Component {
 
 				this.setState( {
 					blocks: filtered,
+					blocksSearchInput: value,
 				} );
 
 				return;
@@ -347,6 +362,7 @@ class App extends React.Component {
 		} else {
 			this.setState( {
 				blocks: value ? [] : this.state.blockArchive,
+				blocksSearchInput: '',
 			} );
 		}
 	}
@@ -361,6 +377,7 @@ class App extends React.Component {
 			kits: [],
 			styleKits: [],
 			blocks: [],
+			blocksSearchInput: '',
 		} );
 
 		wp.hooks.doAction( 'analog.refreshLibrary' );
@@ -380,6 +397,7 @@ class App extends React.Component {
 				styleKits: library.stylekits,
 				blocks: library.blocks,
 				syncing: false,
+				blocksSearchInput: '',
 			} );
 		} ).catch( () => {
 			this.setState( {
