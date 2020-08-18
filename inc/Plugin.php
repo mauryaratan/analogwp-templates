@@ -233,6 +233,7 @@ final class Plugin {
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/trait-document.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-typography.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-colors.php';
+		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-lists.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-post-type.php';
 		require_once ANG_PLUGIN_DIR . 'inc/elementor/class-tools.php';
 		require_once ANG_PLUGIN_DIR . 'inc/upgrade-functions.php';
