@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 class Lists extends Module {
 
 	/**
-	 * Typography constructor.
+	 * List constructor.
 	 */
 	public function __construct() {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_lists' ), 40, 2 );
@@ -161,7 +161,7 @@ class Lists extends Module {
 		);
 
 		$element->add_control(
-			'divider',
+			'ang_list_divider',
 			array(
 				'label'     => __( 'Divider', 'ang' ),
 				'type'      => Controls_Manager::SWITCHER,
@@ -175,7 +175,7 @@ class Lists extends Module {
 		);
 
 		$element->add_control(
-			'divider_style',
+			'ang_list_divider_style',
 			array(
 				'label'     => __( 'Style', 'ang' ),
 				'type'      => Controls_Manager::SELECT,
@@ -197,7 +197,7 @@ class Lists extends Module {
 		);
 
 		$element->add_control(
-			'divider_weight',
+			'ang_list_divider_weight',
 			array(
 				'label'     => __( 'Weight', 'ang' ),
 				'type'      => Controls_Manager::SLIDER,
@@ -221,7 +221,7 @@ class Lists extends Module {
 		);
 
 		$element->add_control(
-			'divider_width',
+			'ang_list_divider_width',
 			array(
 				'label'     => __( 'Width', 'ang' ),
 				'type'      => Controls_Manager::SLIDER,
@@ -239,7 +239,7 @@ class Lists extends Module {
 		);
 
 		$element->add_control(
-			'divider_height',
+			'ang_list_divider_height',
 			array(
 				'label'      => __( 'Height', 'ang' ),
 				'type'       => Controls_Manager::SLIDER,
@@ -268,7 +268,7 @@ class Lists extends Module {
 		);
 
 		$element->add_control(
-			'divider_color',
+			'ang_list_divider_color',
 			array(
 				'label'     => __( 'Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
@@ -286,7 +286,7 @@ class Lists extends Module {
 		);
 
 		$element->add_control(
-			'more_options',
+			'ang_list_icon_options',
 			array(
 				'label'     => __( 'Icon Options', 'ang' ),
 				'type'      => Controls_Manager::HEADING,
@@ -295,7 +295,7 @@ class Lists extends Module {
 		);
 
 		$element->add_control(
-			'icon_color',
+			'ang_list_icon_color',
 			array(
 				'label'     => __( 'Color', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
@@ -311,7 +311,7 @@ class Lists extends Module {
 		);
 
 		$element->add_control(
-			'icon_color_hover',
+			'ang_list_icon_color_hover',
 			array(
 				'label'     => __( 'Hover', 'ang' ),
 				'type'      => Controls_Manager::COLOR,
@@ -324,7 +324,7 @@ class Lists extends Module {
 		);
 
 		$element->add_responsive_control(
-			'icon_size',
+			'ang_list_icon_size',
 			array(
 				'label'     => __( 'Size', 'ang' ),
 				'type'      => Controls_Manager::SLIDER,
@@ -344,7 +344,7 @@ class Lists extends Module {
 		);
 
 		$element->add_responsive_control(
-			'icon_self_align',
+			'ang_list_icon_self_align',
 			array(
 				'label'     => __( 'Alignment', 'ang' ),
 				'type'      => Controls_Manager::CHOOSE,
