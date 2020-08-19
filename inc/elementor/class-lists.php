@@ -117,14 +117,14 @@ class Lists extends Module {
 		$element->add_responsive_control(
 			'ang_list_item_spacing',
 			array(
-				'label'       => __( 'Space Between', 'ang' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [
-					'px' => [
+				'label'     => __( 'Space Between', 'ang' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					'px' => array(
 						'max' => 50,
-					],
-				],
-				'selectors'   => array(
+					),
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child)' => 'padding-bottom: calc({{SIZE}}{{UNIT}}/2)',
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child)' => 'margin-top: calc({{SIZE}}{{UNIT}}/2)',
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item' => 'margin-right: calc({{SIZE}}{{UNIT}}/2); margin-left: calc({{SIZE}}{{UNIT}}/2)',
@@ -137,236 +137,236 @@ class Lists extends Module {
 
 		$element->add_responsive_control(
 			'ang_list_item_align',
-			[
-				'label' => __( 'Alignment', 'ang' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'flex-start' => [
+			array(
+				'label'     => __( 'Alignment', 'ang' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'flex-start' => array(
 						'title' => __( 'Left', 'ang' ),
-						'icon' => 'eicon-h-align-left',
-					],
-					'center' => [
+						'icon'  => 'eicon-h-align-left',
+					),
+					'center'     => array(
 						'title' => __( 'Center', 'ang' ),
-						'icon' => 'eicon-h-align-center',
-					],
-					'flex-end' => [
+						'icon'  => 'eicon-h-align-center',
+					),
+					'flex-end'   => array(
 						'title' => __( 'Right', 'ang' ),
-						'icon' => 'eicon-h-align-right',
-					],
-				],
-				'selectors' => [
+						'icon'  => 'eicon-h-align-right',
+					),
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item' => 'justify-content: {{VALUE}};',
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_control(
 			'divider',
-			[
-				'label' => __( 'Divider', 'ang' ),
-				'type' => Controls_Manager::SWITCHER,
+			array(
+				'label'     => __( 'Divider', 'ang' ),
+				'type'      => Controls_Manager::SWITCHER,
 				'label_off' => __( 'Off', 'ang' ),
-				'label_on' => __( 'On', 'ang' ),
-				'selectors' => [
+				'label_on'  => __( 'On', 'ang' ),
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-icon-list-item:not(:last-child):after' => 'content: ""',
-				],
+				),
 				'separator' => 'before',
-			]
+			)
 		);
 
 		$element->add_control(
 			'divider_style',
-			[
-				'label' => __( 'Style', 'ang' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'solid' => __( 'Solid', 'ang' ),
+			array(
+				'label'     => __( 'Style', 'ang' ),
+				'type'      => Controls_Manager::SELECT,
+				'options'   => array(
+					'solid'  => __( 'Solid', 'ang' ),
 					'double' => __( 'Double', 'ang' ),
 					'dotted' => __( 'Dotted', 'ang' ),
 					'dashed' => __( 'Dashed', 'ang' ),
-				],
-				'default' => 'solid',
-				'condition' => [
+				),
+				'default'   => 'solid',
+				'condition' => array(
 					'divider' => 'yes',
-				],
-				'selectors' => [
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-style: {{VALUE}}',
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-style: {{VALUE}}',
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_control(
 			'divider_weight',
-			[
-				'label' => __( 'Weight', 'ang' ),
-				'type' => Controls_Manager::SLIDER,
-				'default' => [
+			array(
+				'label'     => __( 'Weight', 'ang' ),
+				'type'      => Controls_Manager::SLIDER,
+				'default'   => array(
 					'size' => 1,
-				],
-				'range' => [
-					'px' => [
+				),
+				'range'     => array(
+					'px' => array(
 						'min' => 1,
 						'max' => 20,
-					],
-				],
-				'condition' => [
+					),
+				),
+				'condition' => array(
 					'divider' => 'yes',
-				],
-				'selectors' => [
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-width: {{SIZE}}{{UNIT}}',
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-width: {{SIZE}}{{UNIT}}',
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_control(
 			'divider_width',
-			[
-				'label' => __( 'Width', 'ang' ),
-				'type' => Controls_Manager::SLIDER,
-				'default' => [
+			array(
+				'label'     => __( 'Width', 'ang' ),
+				'type'      => Controls_Manager::SLIDER,
+				'default'   => array(
 					'unit' => '%',
-				],
-				'condition' => [
+				),
+				'condition' => array(
 					'divider' => 'yes',
-					'view!' => 'inline',
-				],
-				'selectors' => [
+					'view!'   => 'inline',
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:not(:last-child):after' => 'width: {{SIZE}}{{UNIT}}',
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_control(
 			'divider_height',
-			[
-				'label' => __( 'Height', 'ang' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ '%', 'px' ],
-				'default' => [
+			array(
+				'label'      => __( 'Height', 'ang' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( '%', 'px' ),
+				'default'    => array(
 					'unit' => '%',
-				],
-				'range' => [
-					'px' => [
+				),
+				'range'      => array(
+					'px' => array(
 						'min' => 1,
 						'max' => 100,
-					],
-					'%' => [
+					),
+					'%'  => array(
 						'min' => 1,
 						'max' => 100,
-					],
-				],
-				'condition' => [
+					),
+				),
+				'condition'  => array(
 					'divider' => 'yes',
-					'view' => 'inline',
-				],
-				'selectors' => [
+					'view'    => 'inline',
+				),
+				'selectors'  => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:not(:last-child):after' => 'height: {{SIZE}}{{UNIT}}',
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_control(
 			'divider_color',
-			[
-				'label' => __( 'Color', 'ang' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '#ddd',
-				'global' => [
+			array(
+				'label'     => __( 'Color', 'ang' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ddd',
+				'global'    => array(
 					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'condition' => [
+				),
+				'condition' => array(
 					'divider' => 'yes',
-				],
-				'selectors' => [
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:not(:last-child):after' => 'border-color: {{VALUE}}',
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_control(
 			'more_options',
-			[
-				'label' => __( 'Icon Options', 'ang' ),
-				'type' => Controls_Manager::HEADING,
+			array(
+				'label'     => __( 'Icon Options', 'ang' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-			]
+			)
 		);
 
 		$element->add_control(
 			'icon_color',
-			[
-				'label' => __( 'Color', 'elementor' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '',
-				'selectors' => [
+			array(
+				'label'     => __( 'Color', 'ang' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon i' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon svg' => 'fill: {{VALUE}};',
-				],
-				'global' => [
+				),
+				'global'    => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_control(
 			'icon_color_hover',
-			[
-				'label' => __( 'Hover', 'elementor' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '',
-				'selectors' => [
+			array(
+				'label'     => __( 'Hover', 'ang' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '',
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:hover .elementor-icon-list-icon i' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:hover .elementor-icon-list-icon svg' => 'fill: {{VALUE}};',
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_responsive_control(
 			'icon_size',
-			[
-				'label' => __( 'Size', 'elementor' ),
-				'type' => Controls_Manager::SLIDER,
-				'default' => [
+			array(
+				'label'     => __( 'Size', 'ang' ),
+				'type'      => Controls_Manager::SLIDER,
+				'default'   => array(
 					'size' => 14,
-				],
-				'range' => [
-					'px' => [
+				),
+				'range'     => array(
+					'px' => array(
 						'min' => 6,
-					],
-				],
-				'selectors' => [
+					),
+				),
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon i' => 'font-size: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon svg' => 'width: {{SIZE}}{{UNIT}};',
-				],
-			]
+				),
+			)
 		);
 
 		$element->add_responsive_control(
 			'icon_self_align',
-			[
-				'label' => __( 'Alignment', 'elementor' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [
-					'left' => [
-						'title' => __( 'Left', 'elementor' ),
-						'icon' => 'eicon-h-align-left',
-					],
-					'center' => [
-						'title' => __( 'Center', 'elementor' ),
-						'icon' => 'eicon-h-align-center',
-					],
-					'right' => [
-						'title' => __( 'Right', 'elementor' ),
-						'icon' => 'eicon-h-align-right',
-					],
-				],
-				'default' => '',
-				'selectors' => [
+			array(
+				'label'     => __( 'Alignment', 'ang' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'   => array(
+						'title' => __( 'Left', 'ang' ),
+						'icon'  => 'eicon-h-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'ang' ),
+						'icon'  => 'eicon-h-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'ang' ),
+						'icon'  => 'eicon-h-align-right',
+					),
+				),
+				'default'   => '',
+				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon' => 'text-align: {{VALUE}};',
-				],
-			]
+				),
+			)
 		);
 
 		$element->end_controls_tab();
