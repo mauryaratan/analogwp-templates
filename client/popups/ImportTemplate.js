@@ -6,7 +6,7 @@ import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
 
-const { Fragment, useState, useContext } = React;
+const { Fragment, useState, useContext, useEffect } = React;
 
 const { decodeEntities } = wp.htmlEntities;
 const { Button, TextControl, ExternalLink, CardDivider } = wp.components;
@@ -141,6 +141,11 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 			__( 'Style Kits Docs', 'ang' )
 		)
 	);
+
+	//componentDidMount
+	useEffect(() => {
+		handler( { kit: defaultDropdownValue.value } );
+	  }, []);
 
 	return (
 		<Popup
