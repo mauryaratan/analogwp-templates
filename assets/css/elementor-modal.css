@@ -9,11 +9,10 @@
 
 #analogwp-templates-modal .dialog-widget-content {
     width: 95vw;
-    max-width: 1300px;
-    height: 800px;
     height: 95vh;
     overflow-y: auto;
-    overflow-x: hidden;
+	overflow-x: hidden;
+	background-color: #e3e3e3;
 }
 
 #analogwp-templates-modal p {
@@ -70,12 +69,12 @@ button[data-action="save_token"] {
 @media (prefers-color-scheme: dark) {
 	.elementor-panel .ang-notice {
 		background: transparent;
-		border: 2px solid rgba(255, 255, 255, .3);
+		border: 1px solid rgba(255, 255, 255, .3);
 	}
 
 	[class*=hint--][aria-label]:after {
 		background: #34383C;
-		border: 2px solid rgba(255,255,255,.3);
+		border: 1px solid rgba(255,255,255,.3);
 		border-radius: 4px;
 	}
 
@@ -86,12 +85,12 @@ button[data-action="save_token"] {
 
 .dark-mode .elementor-panel .ang-notice {
 	background: transparent;
-	border: 2px solid rgba(255, 255, 255, .3);
+	border: 1px solid rgba(255, 255, 255, .3);
 }
 
 .dark-mode [class*=hint--][aria-label]:after {
 	background: #34383C;
-	border: 2px solid rgba(255,255,255,.3);
+	border: 1px solid rgba(255,255,255,.3);
 	border-radius: 4px;
 }
 

@@ -230,9 +230,12 @@ class Utils extends Base {
 	 * @return array
 	 */
 	public static function posts_using_stylekit( $kit_id = false ) {
-		$post_types  = get_post_types( array( 'public' => true ) );
-		$post_types += array( 'elementor_library' );
+		$post_types = get_post_types( array( 'public' => true ) );
 		unset( $post_types['attachment'] );
+
+		if ( ! in_array( 'elementor_library', $post_types, true ) ) {
+			$post_types += array( 'elementor_library' );
+		}
 
 		$query_args = array(
 			'post_type'      => apply_filters( 'analog/stylekit/posttypes', $post_types ),
@@ -624,7 +627,7 @@ class Utils extends Base {
 			$posts = \get_posts(
 				array(
 					'post_type'      => Source_Local::CPT,
-					'post_status'    => array( 'publish', 'draft' ),
+					'post_status'    => array( 'publish' ),
 					'posts_per_page' => -1,
 					'orderby'        => 'title',
 					'order'          => 'DESC',

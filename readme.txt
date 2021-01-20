@@ -2,9 +2,9 @@
 Contributors: analogwp, mauryaratan
 Requires at least: 5.0
 Requires PHP: 5.6
-Tested up to: 5.4.1
-Stable tag: 1.6.9
-Tags: elementor, landing page, design, website builder, templates, page builder
+Tested up to: 5.6
+Stable tag: 1.7.6
+Tags: elementor, templates, landing page, template kit, design, website builder, page builder
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ https://www.youtube.com/watch?v=ItcKsNztJJU
 
 ### Advanced Theme Styles
 
-Style Kits adds meaningful UI controls to Theme Styles for the most important variables of your layout system in Elementor:
+Style Kits for Elementor adds meaningful UI controls to Theme Styles for the most important variables of your layout system in Elementor:
 
 - Column Gaps
 - Outer Section Padding
@@ -36,7 +36,7 @@ The first-of-it's-kind template library for Elementor.
 
 In the Style Kits library, each template kit comes with its own theme style preset. Mix-and-match theme styles and layouts and enjoy built-in design consistency.
 
-### Boost your design workflow with Style Kits Pro
+### Boost your Elementor design workflow with Style Kits Pro
 
 - **Unlimited access** to a hand-made library of premium Template Kits, Theme Style Presets and Blocks that adapt to your existing Theme Styles.
 - **Inline style cleanup tools** that reset your layouts from inline styles. Turn your existing pages into theme-style-friendly layouts with a few clicks.
@@ -108,6 +108,49 @@ Our dedicated support team has your back. Please reach out via our website at ht
 19. "Tools" panel inside Elementor style tab.
 
 == Changelog ==
+
+= 1.7.6 - Nov 26, 2020 =
+* New: Compatible up to WordPress 5.6
+* Fix: Increase "Theme Style" button background color class priority
+* Fix: Increase "Theme Style" link CSS priority
+
+= 1.7.5 - Oct 29, 2020 =
+* New: Theme Style Kits list now shows the respective pages using the specific Kit
+* New: Added setting to add default import method under Style Kits > Settings > General
+* Fix: CSS selector typo for non-optimized and optimized DOM control based CSS output
+* Improvements: Remove max-width from Popup in Elementor editor
+
+= 1.7.4 - Oct 01, 2020 =
+* Fix: Error with PHP v7.2
+
+= 1.7.3 - Oct 01, 2020 =
+* Fix: Preview not loading properly after importing a template
+* Fix: Incorrect selector when Elementor setting "Optimized DOM Output" is changed
+* Fix: Plugin rollback permission in multisite
+
+= 1.7.2 - Sep 18, 2020 =
+* New: Import popup in editor to import template to a new or current page
+* Improvements: Redefined the UI of Import template popup
+* Improvements: Hide draft Kits in Kit dropdowns
+* Fix: Column gap selector, bugged due to change in Elementor v3
+* Fix: JS error on pages where global panel isn't available
+* Fix: Conflict with JetEngine
+
+= 1.7.1 - Aug 29, 2020 =
+* Fix: Broken accent color selector, caused many stylings to fail
+* Fix: Background color classes inheriting accent background colors as text
+* Improvements: Added button to rollback plugin if not using required Elementor version
+
+= 1.7.0 - Aug 27, 2020 =
+* New: Simplified and redesigned library 🎉
+* Fix: Editor not applying correct Style Kit when using Elementor's "Default Kit"
+* Fix: Issue with Icon widget not respecting custom styles
+* Fix: Style Kits not loading web fonts sometimes
+* Fix: Possible fatal error with Yoast SEO and some third party plugins, applicable for WordPress 5.5+
+* Fix: Plugin translations not working in Frontend app (Library pages)
+* Improvements: Compatibility with Elementor v3
+* Improvements: Updated Google fonts list
+* Improvements: Delete unused old Style Kits stored in a CPT, redundant since Elementor's Theme style was introduced
 
 = 1.6.9 - June 06, 2020 =
 * Fix: Missing front-end styles, when user has only two or less kits
@@ -472,3 +515,6 @@ Fixes an error with PHP5.6 or earlier
 
 = 1.6.6 =
 Fixes an bug with inconsistent Outer Section Padding on Sections
+
+= 1.7.0 =
+Requires Elementor v3.0+, adds compatibility and redesigned library

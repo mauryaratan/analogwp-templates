@@ -6,10 +6,10 @@ import Loader from '../icons/loader';
 import { NotificationConsumer } from '../Notifications';
 import Popup from '../popup';
 
-const { Fragment, useState, useContext } = React;
+const { Fragment, useState, useContext, useEffect } = React;
 
 const { decodeEntities } = wp.htmlEntities;
-const { Button, TextControl, ExternalLink } = wp.components;
+const { Button, TextControl, ExternalLink, CardDivider } = wp.components;
 const { __, sprintf } = wp.i18n;
 const { addQueryArgs } = wp.url;
 
@@ -19,12 +19,7 @@ const Container = styled.div`
 		align-items: center;
 
 		> div {
-			height: 45px;
-			margin-right: 20px;
 			flex: 1;
-			> div {
-				min-height: 100%;
-			}
 		}
 	}
 
@@ -77,7 +72,7 @@ const formatGroupLabel = data => (
 
 const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyleKitInfo } ) => {
 	const [ step, setStep ] = useState( 1 );
-	const [ title, setTitle ] = useState( __( 'Select a Style Kit to apply on this layout', 'ang' ) );
+	const [ title, setTitle ] = useState( __( 'Import template', 'ang' ) );
 
 	const kit = state.kit;
 	const { state: { styleKits, installedKits }, dispatch } = useContext( AnalogContext );
@@ -118,7 +113,8 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		return !! ( activeKit && option.value === activeKit.title );
 	} );
 
-	const defaultDropdownValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
+	const defaultKitValue = defaultOption ? defaultOption : AGWP.globalKit[ 0 ];
+	const defaultDropdownValue = ( AGWP.isGlobalSkEnabled === '1' ) ? AGWP.globalKit[ 0 ] : defaultKitValue;
 
 	const importElementor = () => {
 		requestElementorImport( state.template, getStyleKitInfo( state.kit ) ).then( () => {
@@ -142,6 +138,11 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 		)
 	);
 
+	//componentDidMount
+	useEffect(() => {
+		handler( { kit: defaultDropdownValue.value } );
+	}, []);
+
 	return (
 		<Popup
 			title={ title }
@@ -150,120 +151,160 @@ const ImportTemplate = ( { onRequestClose, state, handler, handleImport, getStyl
 			<Container>
 				{ ( step === 1 ) && (
 					<div>
-						<p>The default Style Kit for this template is auto-selected below. You can always apply any of your available Style Kits to this template if you want.</p>
-						<div className="row">
-							<Select
-								options={ groupedOptions }
-								formatGroupLabel={ formatGroupLabel }
-								isSearchable={ false }
-								placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
-								defaultValue={ defaultDropdownValue }
-								onChange={ ( e ) => {
-									handler( { kit: e.value } );
-								} }
-							/>
-							<button
-								className="ang-button"
-								onClick={ () => {
-									setStep( 2 );
-									setTitle( decodeEntities( template.title ) );
-
-									// Fallback if the Default kit in dropdown in unchanged.
-									if ( ! kit ) {
-										handler( { kit: defaultDropdownValue.value } );
-									}
-								} }
-							>{ __( 'Next', 'ang' ) }</button>
-						</div>
-
-						<footer dangerouslySetInnerHTML={ { __html: footer } } />
+						{ ( AGWP.isGlobalSkEnabled )
+							? <h3>{ __( 'The Global Style Kit will be applied on this template', 'ang' ) }</h3>
+							: <h3>{ __( 'Choose a Theme Style Kit to apply on the page.', 'ang' ) }</h3>
+						}
+						{ ( AGWP.isGlobalSkEnabled )
+							? <p id='gsk_name'>{ sprintf(
+									/* translators: 1: Global Style Kit label */
+									__( '%1$s', 'ang' ),
+									AGWP.globalKit[ 0 ].label
+								) }</p>
+							: <p>{ __( 'The original Style Kit is pre-selected for you.', 'ang' ) }</p>
+						}
+						{ ( ! AGWP.isGlobalSkEnabled ) &&
+							<div className="row" style={{width: '42%'}}>
+								<Select
+									options={ groupedOptions }
+									formatGroupLabel={ formatGroupLabel }
+									isSearchable={ false }
+									placeholder={ __( 'Choose a Style Kit...', 'ang' ) }
+									defaultValue={ defaultDropdownValue }
+									onChange={ ( e ) => {
+										handler( { kit: e.value } );
+									} }
+								/>
+							</div>
+						}
+						{ ( AGWP.isGlobalSkEnabled )
+							?<>
+								<p>
+								{ __( 'You can change the default import method at the ', 'ang' ) }
+								<ExternalLink href={ AGWP.globalSkAlwaysEnableURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+								</p>
+							</>
+							:<>
+								<p>
+								{ __( 'You can manage and set a Global Style Kit at the ', 'ang' ) }
+								<ExternalLink href={ AGWP.adminURL }>{ __( 'Settings Page', 'ang' ) }</ExternalLink>
+								</p>
+							</>
+						}
 					</div>
 				) }
 
-				{ ( step === 2 ) && ! state.importingElementor && (
-					<div>
-						<Button
-							isTertiary
-							onClick={ () => {
-								setStep( 1 );
-								handler( { kit: false } );
-							} }
-						>
-						&larr; { __( 'Change Style Kit', 'ang' ) }
-						</Button>
+				{ ( step === 1 ) && (
+					<>
+						<CardDivider className="el-editor" />
+						<div className="flex-row el-editor">
+							<div className="col1">
+								<h3>Import to this page</h3>
+								<p>
+									{ __( 'Import the template in the current page.', 'ang' ) }
+								</p>
+							</div>
+							<div className="col2">
+								<NotificationConsumer>
+									{ ( { add } ) => (
+										<Button
+											isPrimary
+											onClick={ () => {
 
-						<p>
-							{ __( 'Import this template to your library to make it available in your Elementor ', 'ang' ) }
-							<ExternalLink href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</ExternalLink>
-							{ __( ' list for future use.', 'ang' ) }
-						</p>
+												handler( {
+													showingModal: true,
+													importing: true,
+													importingElementor: true
+													} );
 
-						<p>
-							<NotificationConsumer>
-								{ ( { add } ) => (
-									<Button
-										className="ang-button"
-										onClick={ () => {
-											handleImport( add, false );
+												setStep( 2 );
 
-											const kits = [ ...installedKits ];
-											kits.push( state.kit );
-											dispatch( {
-												installedKits: kits,
-											} );
-
-											setStep( 3 );
-										} }
-									>
-										{ __( 'Import to Library', 'ang' ) }
-									</Button>
-								) }
-							</NotificationConsumer>
-						</p>
-
-						<hr />
-
-						<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }</p>
-
-						<div className="form-row">
-							<TextControl
-								placeholder={ __( 'Enter a Page Name', 'ang' ) }
-								style={ { maxWidth: '60%' } }
-								onChange={ val => {
-									handler( { pageName: val } );
-								} }
-							/>
-							<NotificationConsumer>
-								{ ( { add } ) => (
-									<Button
-										className="ang-button"
-										disabled={ ! state.pageName }
-										style={ {
-											marginLeft: '15px',
-										} }
-										onClick={ () => {
-											handleImport( add, state.pageName );
-											setStep( 3 );
-										} }
-									>
-										{ __( 'Import to page', 'ang' ) }
-									</Button>
-								) }
-							</NotificationConsumer>
+											} }
+										>
+											{ __( 'Import to current page', 'ang' ) }
+										</Button>
+									) }
+								</NotificationConsumer>
+							</div>
 						</div>
-					</div>
+						<CardDivider />
+						<div className="flex-row">
+							<div className="col1">
+								<h3>Import to Library</h3>
+								<p>
+									{ __( 'Import this template to your library to make it available in your Elementor ', 'ang' ) }
+									<ExternalLink href={ AGWP.elementorURL }>{ __( 'Saved Templates', 'ang' ) }</ExternalLink>
+									{ __( ' list for future use.', 'ang' ) }
+								</p>
+							</div>
+							<div className="col2">
+								<NotificationConsumer>
+									{ ( { add } ) => (
+										<Button
+											isPrimary
+											onClick={ () => {
+												handleImport( add, false );
+
+												const kits = [ ...installedKits ];
+												kits.push( state.kit );
+												dispatch( {
+													installedKits: kits,
+												} );
+
+												setStep( 2 );
+											} }
+										>
+											{ __( 'Import to Library', 'ang' ) }
+										</Button>
+									) }
+								</NotificationConsumer>
+							</div>
+						</div>
+						<CardDivider />
+						<div className="flex-row">
+							<div className="col1">
+								<h3>{ __( 'Import to a new page', 'ang' ) }</h3>
+								<p>{ __( 'Create a new page from this template to make it available as a draft page in your Pages list.', 'ang' ) }</p>
+							</div>
+							<div className="col2">
+								<TextControl
+									placeholder={ __( 'Enter a Page Name', 'ang' ) }
+									onChange={ val => {
+										handler( { pageName: val } );
+									} }
+								/>
+								<NotificationConsumer>
+									{ ( { add } ) => (
+										<Button
+											isSecondary
+											disabled={ ! state.pageName }
+											onClick={ () => {
+												handleImport( add, state.pageName );
+												setStep( 2 );
+											} }
+										>
+											{ __( 'Import to page', 'ang' ) }
+										</Button>
+									) }
+								</NotificationConsumer>
+							</div>
+						</div>
+					</>
 				) }
 
-				{ ( step >= 2 ) && state.importing && (
+				{ ( step >= 1 ) && state.importing && (
 					<div style={ { textAlign: 'center', fontSize: '15px' } }>
 						{ state.importedPage ?
 							( <Fragment>
 								<p>{ __( 'All done! The template has been imported.', 'ang' ) }</p>
 								<p>
 									<a
-										className="ang-button"
 										href={ addQueryArgs( 'post.php', { post: state.importedPage, action: 'elementor' } ) }
-									>{ __( 'Edit Template' ) }</a>
+									>
+										<Button isPrimary>
+											{ __( 'Edit Template' ) }
+										</Button>
+									</a>
 								</p>
 							</Fragment> ) :
 							(

@@ -34,6 +34,8 @@ class Colors extends Module {
 		add_action( 'elementor/element/image-box/section_style_content/before_section_end', array( $this, 'tweak_image_box' ) );
 		add_action( 'elementor/element/heading/section_title_style/before_section_end', array( $this, 'tweak_heading' ) );
 		add_action( 'elementor/element/nav-menu/section_style_main-menu/before_section_end', array( $this, 'tweak_nav_menu' ) );
+		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'tweak_theme_style_button' ), 20, 2 );
+		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_theme_style_typography' ), 20, 2 );
 	}
 
 	/**
@@ -142,6 +144,73 @@ class Colors extends Module {
 	}
 
 	/**
+	 * Tweak default theme style button bg color - increases class priority.
+	 *
+	 * @since 1.7.6
+	 * @param Controls_Stack $element Elementor element.
+	 * @param string         $section_id Section ID.
+	 */
+	public function tweak_theme_style_button( Controls_Stack $element, $section_id ) {
+		$button_selectors = array(
+			'{{WRAPPER}} button',
+			'{{WRAPPER}} input[type="button"]',
+			'{{WRAPPER}} input[type="submit"]',
+			'{{WRAPPER}} .elementor-button.elementor-button',
+		);
+
+		$button_selector = implode( ',', $button_selectors );
+
+		$element->update_control(
+			'button_background_color',
+			array(
+				'selectors' => array(
+					$button_selector => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+	}
+
+	/**
+	 * Tweak default theme style typography.
+	 *
+	 * @since 1.7.6
+	 * @param Controls_Stack $element Elementor element.
+	 * @param string         $section_id Section ID.
+	 */
+	public function tweak_theme_style_typography( Controls_Stack $element, $section_id ) {
+		$link_selectors = array(
+			'{{WRAPPER}} .elementor-widget-container *:not(.menu-item):not(.elementor-tab-title):not(.elementor-image-box-title):not(.elementor-icon-box-title):not(.elementor-icon-box-icon):not(.elementor-post__title):not(.elementor-heading-title) > a:not(:hover):not(:active):not(.elementor-item-active):not([role="button"]):not(.button):not(.elementor-button):not(.elementor-post__read-more):not(.elementor-post-info__terms-list-item):not([role="link"])',
+			'{{WRAPPER}} .elementor-widget-container a:not([class])',
+		);
+
+		$link_hover_selectors = array(
+			'{{WRAPPER}} .elementor-widget-container a:hover:not([class])',
+		);
+
+		$link_selectors       = implode( ',', $link_selectors );
+		$link_hover_selectors = implode( ',', $link_hover_selectors );
+
+		$element->update_control(
+			'link_normal_color',
+			array(
+				'selectors' => array(
+					$link_selectors => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$element->update_control(
+			'link_hover_color',
+			array(
+				'selectors' => array(
+					$link_hover_selectors => 'color: {{VALUE}};',
+				),
+			)
+		);
+	}
+
+
+	/**
 	 * Register Analog Color controls.
 	 *
 	 * @param Controls_Stack $element Elementor element.
@@ -215,7 +284,6 @@ class Colors extends Module {
 
 		$selectors = array(
 			'{{WRAPPER}}'                           => '--ang_color_accent_primary: {{VALUE}};',
-			'{{WRAPPER}} .elementor-view-stacked .elementor-icon' => 'color: #fff;',
 			'{{WRAPPER}} .elementor-view-framed .elementor-icon, {{WRAPPER}} .elementor-view-default .elementor-icon' => 'border-color: {{VALUE}};',
 			'.theme-hello-elementor .comment-form input#submit' => 'color: #fff; border: none;',
 			'{{WRAPPER}} .elementor-tab-title a'    => 'color: inherit;',

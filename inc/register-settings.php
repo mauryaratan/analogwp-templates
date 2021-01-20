@@ -79,6 +79,15 @@ function register_menu() {
 			__NAMESPACE__ . '\handle_external_redirects'
 		);
 	}
+
+	add_submenu_page(
+		null,
+		__( 'Instances', 'ang' ),
+		__( 'Instances List', 'ang' ),
+		'manage_options',
+		'ang-instance-list',
+		'Analog\Elementor\Kit\ang_instance_list'
+	);
 }
 
 add_action( 'admin_menu', __NAMESPACE__ . '\register_menu' );
@@ -173,7 +182,7 @@ function settings_page() {
 	do_action( 'ang_loaded_templates' );
 	?>
 	<style>body { background: #E3E3E3; }</style>
-	<div id="analogwp-templates"></div>
+	<div id="analogwp-templates" class="wrap"></div>
 	<?php
 }
 

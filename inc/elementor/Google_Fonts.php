@@ -11,128 +11,63 @@ namespace Analog\Elementor;
  * @since 1.6.0
  */
 class Google_Fonts {
+	const TRANSIENT = 'analogwp_google_fonts';
+
 	/**
-	 * Return an array of all available Google Fonts.
+	 * Registers functionality through WordPress hooks.
 	 *
-	 * Last updated on: 2020/06/06
-	 *
-	 * Total 101 Fonts.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @return array    All Google Fonts.
+	 * @since n.e.x.t
 	 */
-	public static function get_google_fonts() {
-		/**
-		 * Allow developers to modify the allowed Google fonts.
-		 *
-		 * @param array $fonts The list of Google fonts with variants and subsets.
-		 */
-		return apply_filters(
-			'analog_get_google_fonts',
-			array(
-				'Alata'                 => 'googlefonts',
-				'Alatsi'                => 'googlefonts',
-				'Aleo'                  => 'googlefonts',
-				'Almarai'               => 'googlefonts',
-				'B612'                  => 'googlefonts',
-				'B612 Mono'             => 'googlefonts',
-				'Bahianita'             => 'googlefonts',
-				'Baloo 2'               => 'googlefonts',
-				'Baloo Bhai 2'          => 'googlefonts',
-				'Baloo Bhaina 2'        => 'googlefonts',
-				'Baloo Chettan 2'       => 'googlefonts',
-				'Baloo Da 2'            => 'googlefonts',
-				'Baloo Paaji 2'         => 'googlefonts',
-				'Baloo Tamma 2'         => 'googlefonts',
-				'Baloo Tammudu 2'       => 'googlefonts',
-				'Baloo Thambi 2'        => 'googlefonts',
-				'Balsamiq Sans'         => 'googlefonts',
-				'Barriecito'            => 'googlefonts',
-				'Baskervville'          => 'googlefonts',
-				'Be Vietnam'            => 'googlefonts',
-				'Bebas Neue'            => 'googlefonts',
-				'Bellota'               => 'googlefonts',
-				'Bellota Text'          => 'googlefonts',
-				'Beth Ellen'            => 'googlefonts',
-				'Big Shoulders Display' => 'googlefonts',
-				'Big Shoulders Text'    => 'googlefonts',
-				'Blinker'               => 'googlefonts',
-				'Caladea'               => 'googlefonts',
-				'Calistoga'             => 'googlefonts',
-				'Charm'                 => 'googlefonts',
-				'Chilanka'              => 'googlefonts',
-				'Comic Neue'            => 'googlefonts',
-				'Courier Prime'         => 'googlefonts',
-				'Crimson Pro'           => 'googlefonts',
-				'DM Mono'               => 'googlefonts',
-				'DM Sans'               => 'googlefonts',
-				'DM Serif Display'      => 'googlefonts',
-				'DM Serif Text'         => 'googlefonts',
-				'Darker Grotesque'      => 'googlefonts',
-				'Farro'                 => 'googlefonts',
-				'Fira Code'             => 'googlefonts',
-				'Gayathri'              => 'googlefonts',
-				'Gelasio'               => 'googlefonts',
-				'Girassol'              => 'googlefonts',
-				'Gotu'                  => 'googlefonts',
-				'Grenze'                => 'googlefonts',
-				'Gupter'                => 'googlefonts',
-				'Hepta Slab'            => 'googlefonts',
-				'Ibarra Real Nova'      => 'googlefonts',
-				'Inria Sans'            => 'googlefonts',
-				'Inria Serif'           => 'googlefonts',
-				'Inter'                 => 'googlefonts',
-				'Jomolhari'             => 'googlefonts',
-				'Jost'                  => 'googlefonts',
-				'Kulim Park'            => 'googlefonts',
-				'Lacquer'               => 'googlefonts',
-				'Lexend Deca'           => 'googlefonts',
-				'Lexend Exa'            => 'googlefonts',
-				'Lexend Giga'           => 'googlefonts',
-				'Lexend Mega'           => 'googlefonts',
-				'Lexend Peta'           => 'googlefonts',
-				'Lexend Tera'           => 'googlefonts',
-				'Lexend Zetta'          => 'googlefonts',
-				'Libre Caslon Display'  => 'googlefonts',
-				'Libre Caslon Text'     => 'googlefonts',
-				'Literata'              => 'googlefonts',
-				'Liu Jian Mao Cao'      => 'googlefonts',
-				'Livvic'                => 'googlefonts',
-				'Long Cang'             => 'googlefonts',
-				'Ma Shan Zheng'         => 'googlefonts',
-				'Major Mono Display'    => 'googlefonts',
-				'Manjari'               => 'googlefonts',
-				'Manrope'               => 'googlefonts',
-				'Mansalva'              => 'googlefonts',
-				'Noto Sans HK'          => 'googlefonts',
-				'Noto Sans SC'          => 'googlefonts',
-				'Noto Sans TC'          => 'googlefonts',
-				'Noto Serif SC'         => 'googlefonts',
-				'Noto Serif TC'         => 'googlefonts',
-				'Odibee Sans'           => 'googlefonts',
-				'Oxanium'               => 'googlefonts',
-				'Public Sans'           => 'googlefonts',
-				'Red Hat Display'       => 'googlefonts',
-				'Red Hat Text'          => 'googlefonts',
-				'Saira Stencil One'     => 'googlefonts',
-				'Sarabun'               => 'googlefonts',
-				'Sen'                   => 'googlefonts',
-				'Single Day'            => 'googlefonts',
-				'Solway'                => 'googlefonts',
-				'Spartan'               => 'googlefonts',
-				'Staatliches'           => 'googlefonts',
-				'Sulphur Point'         => 'googlefonts',
-				'Thasadith'             => 'googlefonts',
-				'Tomorrow'              => 'googlefonts',
-				'Turret Road'           => 'googlefonts',
-				'Viaoda Libre'          => 'googlefonts',
-				'Vibes'                 => 'googlefonts',
-				'ZCOOL KuaiLe'          => 'googlefonts',
-				'ZCOOL QingKe HuangYou' => 'googlefonts',
-				'ZCOOL XiaoWei'         => 'googlefonts',
-				'Zhi Mang Xing'         => 'googlefonts',
-			)
-		);
+	public function register() {
+		add_action( 'init', array( $this, 'fetch_google_fonts' ) );
+		add_filter( 'elementor/fonts/additional_fonts', array( $this, 'add_fonts_to_elementor' ) );
+	}
+
+	/**
+	 * Google fonts are updated automatically every 24 hours on referenced link in repository.
+	 * This function refreshes the fonts list everyday to bring all fonts.
+	 *
+	 * @since n.e.x.t
+	 */
+	public function fetch_google_fonts() {
+		if ( ! get_transient( self::TRANSIENT ) ) {
+			$url = 'https://raw.githubusercontent.com/analogwp/google-fonts/main/fonts.json';
+
+			$request = wp_remote_get( $url, array( 'timeout' => 20 ) );
+
+			if ( ! is_wp_error( $request ) ) {
+				$body = wp_remote_retrieve_body( $request );
+				if ( ! empty( $body ) ) {
+					set_transient( self::TRANSIENT, $body, DAY_IN_SECONDS );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Iterate through our Google fonts library and add it to Elementor.
+	 *
+	 * @param array $additional_fonts Google fonts list.
+	 *
+	 * @since n.e.x.t
+	 * @return array|mixed
+	 */
+	public function add_fonts_to_elementor( $additional_fonts ) {
+		$fonts = get_transient( self::TRANSIENT );
+
+		if ( $fonts ) {
+			$fonts = json_decode( $fonts, true );
+			if ( count( $fonts ) ) {
+				$formatted_fonts = [];
+
+				foreach ( $fonts as $font ) {
+					$formatted_fonts[ $font ] = 'googlefonts';
+				}
+
+				$additional_fonts = array_merge( $additional_fonts, $formatted_fonts );
+			}
+		}
+
+		return $additional_fonts;
 	}
 }
