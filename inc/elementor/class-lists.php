@@ -27,6 +27,7 @@ class Lists extends Module {
 	 */
 	public function __construct() {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_lists' ), 40, 2 );
+		add_action( 'elementor/element/icon-list/section_icon_list/after_section_end', array( $this, 'override_icon_list' ), 10, 2 );
 	}
 
 	/**
@@ -43,7 +44,7 @@ class Lists extends Module {
 	 *
 	 * @param Controls_Stack $element Controls object.
 	 * @param string         $section_id Section ID.
-	 * @since 1.7
+	 * @since 1.7.7
 	 */
 	public function register_lists( Controls_Stack $element, $section_id ) {
 		$element->start_controls_section(
@@ -376,6 +377,40 @@ class Lists extends Module {
 		$element->end_controls_tabs();
 
 		$element->end_controls_section();
+	}
+
+	/**
+	 * Override List controls.
+	 *
+	 * Override the Icon List widget controls.
+	 *
+	 * @param Controls_Stack $element Controls object.
+	 * @param string         $section_id Section ID.
+	 * @since 1.7.7
+	 */
+	public function override_icon_list( Controls_Stack $element, $section_id ) {
+		/*
+		 * @todo If we call get_controls_settings inside this method error thrown, need to check alternative to get settings value.
+		 * https://github.com/elementor/elementor/issues/10686#issuecomment-755174109
+		 */
+		// $element->get_controls_settings();
+
+		$divider_style_control = $element->get_controls( 'divider_style' );
+
+		$divider_style_options = array_merge(
+			array(
+				'sk_override' => 'SK Override',
+			),
+			$divider_style_control['options'],
+		);
+
+		$element->update_control(
+			'divider_style',
+			array(
+				'default' => 'sk_override',
+				'options' => $divider_style_options,
+			)
+		);
 	}
 
 }
