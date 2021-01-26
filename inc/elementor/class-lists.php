@@ -170,7 +170,7 @@ class Lists extends Module {
 				'label_off' => __( 'Off', 'ang' ),
 				'label_on'  => __( 'On', 'ang' ),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-icon-list-item:not(:last-child):after' => 'content: ""',
+					'{{WRAPPER}} .sk-override .elementor-icon-list-item:not(:last-child):after' => 'content: ""',
 				),
 				'separator' => 'before',
 			)
@@ -189,11 +189,11 @@ class Lists extends Module {
 				),
 				'default'   => 'solid',
 				'condition' => array(
-					'divider' => 'yes',
+					'ang_list_divider' => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-style: {{VALUE}}',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-style: {{VALUE}}',
+					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override.elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-style: {{VALUE}}',
+					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override.elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-style: {{VALUE}}',
 				),
 			)
 		);
@@ -213,11 +213,11 @@ class Lists extends Module {
 					),
 				),
 				'condition' => array(
-					'divider' => 'yes',
+					'ang_list_divider' => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-width: {{SIZE}}{{UNIT}}',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override.elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override.elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-width: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -231,11 +231,11 @@ class Lists extends Module {
 					'unit' => '%',
 				),
 				'condition' => array(
-					'divider' => 'yes',
+					'ang_list_divider' => 'yes',
 					'view!'   => 'inline',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:not(:last-child):after' => 'width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override .elementor-icon-list-item:not(:last-child):after' => 'width: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -260,11 +260,11 @@ class Lists extends Module {
 					),
 				),
 				'condition'  => array(
-					'divider' => 'yes',
+					'ang_list_divider' => 'yes',
 					'view'    => 'inline',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:not(:last-child):after' => 'height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override .elementor-icon-list-item:not(:last-child):after' => 'height: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -279,10 +279,10 @@ class Lists extends Module {
 					'default' => Global_Colors::COLOR_TEXT,
 				),
 				'condition' => array(
-					'divider' => 'yes',
+					'ang_list_divider' => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:not(:last-child):after' => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override .elementor-icon-list-item:not(:last-child):after' => 'border-color: {{VALUE}}',
 				),
 			)
 		);
@@ -424,11 +424,17 @@ class Lists extends Module {
 	 * @since 1.7.7
 	 */
 	public function list_render( $widget ) {
-		if ( 'icon-list' === $widget->get_name() &&
-			'sk_override' === $widget->get_settings( 'divider_style' ) &&
-			method_exists( $widget, 'add_render_attribute' )
-		) {
-			$widget->add_render_attribute( 'icon_list', 'class', 'sk-override' );
+		if ( 'icon-list' === $widget->get_name() ) {
+
+			if ( 'sk_override' === $widget->get_settings( 'divider_style' ) &&
+				method_exists( $widget, 'add_render_attribute' )
+			) {
+				$widget->add_render_attribute( 'icon_list', 'class', 'sk-override' );
+			}/* @todo: Incase class removal failed we will uncomment this code
+			 elseif ( 'sk_override' !== $widget->get_settings( 'divider_style' ) &&
+				method_exists( $widget, 'remove_render_attribute' ) ) {
+				$widget->remove_render_attribute( 'icon_list', 'class', 'sk-override' );
+			} */
 		}
 	}
 
