@@ -232,7 +232,7 @@ class Lists extends Module {
 				),
 				'condition' => array(
 					'ang_list_divider' => 'yes',
-					'view!'   => 'inline',
+					'view!'            => 'inline',
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override .elementor-icon-list-item:not(:last-child):after' => 'width: {{SIZE}}{{UNIT}}',
@@ -261,7 +261,7 @@ class Lists extends Module {
 				),
 				'condition'  => array(
 					'ang_list_divider' => 'yes',
-					'view'    => 'inline',
+					'view'             => 'inline',
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override .elementor-icon-list-item:not(:last-child):after' => 'height: {{SIZE}}{{UNIT}}',
