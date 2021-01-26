@@ -28,6 +28,7 @@ class Lists extends Module {
 	public function __construct() {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_lists' ), 40, 2 );
 		add_action( 'elementor/element/icon-list/section_icon_list/after_section_end', array( $this, 'override_icon_list' ), 10, 2 );
+		add_action( 'elementor/widget/before_render_content', array( $this, 'list_render' ), 10, 1 );
 	}
 
 	/**
@@ -411,6 +412,24 @@ class Lists extends Module {
 				'options' => $divider_style_options,
 			)
 		);
+
+	}
+
+	/**
+	 * Update list rendering.
+	 *
+	 * Add custom css class to the list when Style Kit override option set
+	 *
+	 * @param Elementor\Widget_Base $widget Widget object.
+	 * @since 1.7.7
+	 */
+	public function list_render( $widget ) {
+		if ( 'icon-list' === $widget->get_name() &&
+			'sk_override' === $widget->get_settings( 'divider_style' ) &&
+			method_exists( $widget, 'add_render_attribute' )
+		) {
+			$widget->add_render_attribute( 'icon_list', 'class', 'sk-override' );
+		}
 	}
 
 }
