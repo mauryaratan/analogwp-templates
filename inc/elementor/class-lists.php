@@ -29,6 +29,7 @@ class Lists extends Module {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_lists' ), 40, 2 );
 		add_action( 'elementor/element/icon-list/section_icon_list/after_section_end', array( $this, 'override_icon_list' ), 10, 2 );
 		add_action( 'elementor/widget/before_render_content', array( $this, 'list_render' ), 10, 1 );
+		add_action( 'elementor/editor/after_enqueue_scripts', array( $this, 'editor_enqueue_scripts' ), 999 );
 	}
 
 	/**
@@ -436,6 +437,26 @@ class Lists extends Module {
 				$widget->remove_render_attribute( 'icon_list', 'class', 'sk-override' );
 			} */
 		}
+	}
+
+	/**
+	 * Enqueue editor script.
+	 *
+	 * @return void
+	 */
+	public function editor_enqueue_scripts() {
+		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		wp_enqueue_script(
+			'ang_icon_list_editor_script',
+			ANG_PLUGIN_URL . "inc/elementor/js/ang-lists-widget-editor{$script_suffix}.js",
+			array(
+				'jquery',
+				'elementor-editor',
+			),
+			ANG_VERSION,
+			true
+		);
 	}
 
 }
