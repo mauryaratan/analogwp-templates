@@ -74,7 +74,7 @@ class Lists extends Module {
 			)
 		);
 
-		$selectors_string = '{{WRAPPER}} .elementor-element  ul.elementor-icon-list-items';
+		$selectors_string = '{{WRAPPER}} .elementor-element ul.elementor-icon-list-items';
 
 		$element->add_responsive_control(
 			'ang_list_margin',
@@ -129,12 +129,12 @@ class Lists extends Module {
 					),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child)' => 'padding-bottom: calc({{SIZE}}{{UNIT}}/2)',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child)' => 'margin-top: calc({{SIZE}}{{UNIT}}/2)',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item' => 'margin-right: calc({{SIZE}}{{UNIT}}/2); margin-left: calc({{SIZE}}{{UNIT}}/2)',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items.elementor-inline-items' => 'margin-right: calc(-{{SIZE}}{{UNIT}}/2); margin-left: calc(-{{SIZE}}{{UNIT}}/2)',
-					'body.rtl {{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after' => 'left: calc(-{{SIZE}}{{UNIT}}/2)',
-					'body:not(.rtl) {{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after' => 'right: calc(-{{SIZE}}{{UNIT}}/2)',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child)' => 'padding-bottom: calc({{SIZE}}{{UNIT}}/2)',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child)' => 'margin-top: calc({{SIZE}}{{UNIT}}/2)',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item' => 'margin-right: calc({{SIZE}}{{UNIT}}/2); margin-left: calc({{SIZE}}{{UNIT}}/2)',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-items.elementor-inline-items' => 'margin-right: calc(-{{SIZE}}{{UNIT}}/2); margin-left: calc(-{{SIZE}}{{UNIT}}/2)',
+					'body.rtl {{WRAPPER}} .elementor-element .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after' => 'left: calc(-{{SIZE}}{{UNIT}}/2)',
+					'body:not(.rtl) {{WRAPPER}} .elementor-element .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after' => 'right: calc(-{{SIZE}}{{UNIT}}/2)',
 				),
 			)
 		);
@@ -159,7 +159,7 @@ class Lists extends Module {
 					),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .elementor-icon-list-item' => 'justify-content: {{VALUE}};',
 				),
 			)
 		);
@@ -194,8 +194,8 @@ class Lists extends Module {
 					'ang_list_divider' => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override.elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-style: {{VALUE}}',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override.elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-style: {{VALUE}}',
+					'{{WRAPPER}} .elementor-element .sk-override.elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-style: {{VALUE}}',
+					'{{WRAPPER}} .elementor-element .sk-override.elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-style: {{VALUE}}',
 				),
 			)
 		);
@@ -218,8 +218,8 @@ class Lists extends Module {
 					'ang_list_divider' => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override.elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-width: {{SIZE}}{{UNIT}}',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override.elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-element .sk-override.elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child):after' => 'border-top-width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-element .sk-override.elementor-inline-items .elementor-icon-list-item:not(:last-child):after' => 'border-left-width: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -237,7 +237,7 @@ class Lists extends Module {
 					'view!'            => 'inline',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override .elementor-icon-list-item:not(:last-child):after' => 'width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-element .sk-override .elementor-icon-list-item:not(:last-child):after' => 'width: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -266,7 +266,7 @@ class Lists extends Module {
 					'view'             => 'inline',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override .elementor-icon-list-item:not(:last-child):after' => 'height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .elementor-element .sk-override .elementor-icon-list-item:not(:last-child):after' => 'height: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -284,7 +284,7 @@ class Lists extends Module {
 					'ang_list_divider' => 'yes',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .sk-override .elementor-icon-list-item:not(:last-child):after' => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .elementor-element .sk-override .elementor-icon-list-item:not(:last-child):after' => 'border-color: {{VALUE}}',
 				),
 			)
 		);
@@ -305,8 +305,8 @@ class Lists extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon i' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon svg' => 'fill: {{VALUE}};',
 				),
 				'global'    => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -321,8 +321,8 @@ class Lists extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:hover .elementor-icon-list-icon i' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-item:hover .elementor-icon-list-icon svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-item:hover .elementor-icon-list-icon i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-item:hover .elementor-icon-list-icon svg' => 'fill: {{VALUE}};',
 				),
 			)
 		);
@@ -341,8 +341,8 @@ class Lists extends Module {
 					),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon i' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon svg' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon svg' => 'width: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -368,7 +368,7 @@ class Lists extends Module {
 				),
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-widget-container .elementor-icon-list-icon' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon' => 'text-align: {{VALUE}};',
 				),
 			)
 		);
