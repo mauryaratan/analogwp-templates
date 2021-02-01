@@ -30,6 +30,7 @@ class Lists extends Module {
 		add_action( 'elementor/element/icon-list/section_icon_list/after_section_end', array( $this, 'override_icon_list' ), 10, 2 );
 		add_action( 'elementor/widget/before_render_content', array( $this, 'list_render' ), 10, 1 );
 		add_action( 'elementor/editor/after_enqueue_scripts', array( $this, 'editor_enqueue_scripts' ), 999 );
+		add_action( 'elementor/widget/print_template', array( $this, 'hook_print_template' ), 10, 2 );
 	}
 
 	/**
@@ -457,6 +458,18 @@ class Lists extends Module {
 			ANG_VERSION,
 			true
 		);
+	}
+
+	/**
+	 * Empty hook method which retain custom class on editing.
+	 */
+	public function hook_print_template() {
+		/*
+		On every edit Elementor rerender the preview that time it removes all
+		custom class to avoid this add a hook to elementor/widget/print_template
+		tag. Though we added the custom class using the metho "add_render_attribute"
+		still we require this empty hook method in the class.
+		*/
 	}
 
 }
