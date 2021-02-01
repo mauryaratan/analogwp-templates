@@ -24,6 +24,8 @@ class Lists extends Module {
 
 	/**
 	 * List constructor.
+	 *
+	 * @since 1.8.1
 	 */
 	public function __construct() {
 		add_action( 'elementor/element/kit/section_buttons/after_section_end', array( $this, 'register_lists' ), 40, 2 );
@@ -37,6 +39,7 @@ class Lists extends Module {
 	 * Get module name.
 	 *
 	 * @return string
+	 * @since 1.8.1
 	 */
 	public function get_name() {
 		return 'ang-lists';
@@ -47,7 +50,7 @@ class Lists extends Module {
 	 *
 	 * @param Controls_Stack $element Controls object.
 	 * @param string         $section_id Section ID.
-	 * @since 1.7.7
+	 * @since 1.8.1
 	 */
 	public function register_lists( Controls_Stack $element, $section_id ) {
 		$element->start_controls_section(
@@ -389,15 +392,9 @@ class Lists extends Module {
 	 *
 	 * @param Controls_Stack $element Controls object.
 	 * @param string         $section_id Section ID.
-	 * @since 1.7.7
+	 * @since 1.8.1
 	 */
 	public function override_icon_list( Controls_Stack $element, $section_id ) {
-		/*
-		 * @todo If we call get_controls_settings inside this method error thrown, need to check alternative to get settings value.
-		 * https://github.com/elementor/elementor/issues/10686#issuecomment-755174109
-		 */
-		// $element->get_controls_settings();
-
 		$divider_style_control = $element->get_controls( 'divider_style' );
 
 		$divider_style_options = array_merge(
@@ -423,7 +420,7 @@ class Lists extends Module {
 	 * Add custom css class to the list when Style Kit override option set
 	 *
 	 * @param Elementor\Widget_Base $widget Widget object.
-	 * @since 1.7.7
+	 * @since 1.8.1
 	 */
 	public function list_render( $widget ) {
 		if ( 'icon-list' === $widget->get_name() ) {
@@ -432,17 +429,14 @@ class Lists extends Module {
 				method_exists( $widget, 'add_render_attribute' )
 			) {
 				$widget->add_render_attribute( 'icon_list', 'class', 'sk-override' );
-			}/* @todo: Incase class removal failed we will uncomment this code
-			 elseif ( 'sk_override' !== $widget->get_settings( 'divider_style' ) &&
-				method_exists( $widget, 'remove_render_attribute' ) ) {
-				$widget->remove_render_attribute( 'icon_list', 'class', 'sk-override' );
-			} */
+			}
 		}
 	}
 
 	/**
 	 * Enqueue editor script.
 	 *
+	 * @since 1.8.1
 	 * @return void
 	 */
 	public function editor_enqueue_scripts() {
