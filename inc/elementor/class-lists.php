@@ -319,8 +319,8 @@ class Lists extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon i' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon i, {{WRAPPER}} .elementor-element.sk-list i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon svg, {{WRAPPER}} .elementor-element.sk-list svg' => 'fill: {{VALUE}};',
 				),
 				'global'    => array(
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -335,8 +335,8 @@ class Lists extends Module {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-icon-list-item:hover .elementor-icon-list-icon i' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .elementor-element .elementor-icon-list-item:hover .elementor-icon-list-icon svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-item:hover .elementor-icon-list-icon i, {{WRAPPER}} .elementor-element.sk-list li:hover i' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-item:hover .elementor-icon-list-icon svg, {{WRAPPER}} .elementor-element.sk-list li:hover svg' => 'fill: {{VALUE}};',
 				),
 			)
 		);
@@ -355,8 +355,9 @@ class Lists extends Module {
 					),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon i' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon svg' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon i, {{WRAPPER}} .elementor-element.sk-list i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .elementor-element .elementor-icon-list-icon svg, {{WRAPPER}} .elementor-element.sk-list svg' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .elementor-element.sk-list svg' => 'height: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
