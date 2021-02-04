@@ -32,6 +32,7 @@ class Lists extends Module {
 		add_action( 'elementor/element/icon-list/section_icon_list/after_section_end', array( $this, 'override_icon_list' ), 10, 2 );
 		add_action( 'elementor/widget/before_render_content', array( $this, 'list_render' ), 10, 1 );
 		add_action( 'elementor/editor/after_enqueue_scripts', array( $this, 'editor_enqueue_scripts' ), 999 );
+		add_action( 'elementor/frontend/before_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
 		add_action( 'elementor/widget/print_template', array( $this, 'hook_print_template' ), 10, 2 );
 	}
 
@@ -173,6 +174,7 @@ class Lists extends Module {
 					 * @todo Marker issue https://stackoverflow.com/questions/54466230/why-does-flexbox-affect-its-containing-list-items-marker
 					 */
 					'{{WRAPPER}} .elementor-icon-list-item, {{WRAPPER}} .elementor-element.sk-list li' => 'justify-content: {{VALUE}};',
+					'{{WRAPPER}} .elementor-element.sk-list li' => 'display: flex; align-items: center; position: relative;',
 				),
 			)
 		);
@@ -186,7 +188,7 @@ class Lists extends Module {
 				'label_on'  => __( 'On', 'ang' ),
 				'selectors' => array(
 					'{{WRAPPER}} .sk-override .elementor-icon-list-item:not(:last-child):after, {{WRAPPER}} .elementor-element.sk-list li:not(:last-child):after' => 'content: ""',
-					'{{WRAPPER}} .elementor-element.sk-list li:not(:last-child):after' => 'display:block;',
+					'{{WRAPPER}} .elementor-element.sk-list li:not(:last-child):after' => 'position:absolute; width: 100%; left: 0; right: 0; bottom: 0;',
 				),
 				'separator' => 'before',
 			)
@@ -476,6 +478,24 @@ class Lists extends Module {
 		tag. Though we added the custom class using the metho "add_render_attribute"
 		still we require this empty hook method in the class.
 		*/
+	}
+
+	/**
+	 * Frontend scripts.
+	 */
+	public function frontend_enqueue_scripts() {
+		$script_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		wp_enqueue_script(
+			'ang_icon_list_frontend_script',
+			ANG_PLUGIN_URL . "inc/elementor/js/ang-lists-widget-frontend{$script_suffix}.js",
+			array(
+				'jquery',
+				'elementor-frontend',
+			),
+			ANG_VERSION,
+			true
+		);
 	}
 
 }
