@@ -169,12 +169,13 @@ class Lists extends Module {
 					),
 				),
 				'selectors' => array(
-
-					/*
-					 * @todo Marker issue https://stackoverflow.com/questions/54466230/why-does-flexbox-affect-its-containing-list-items-marker
-					 */
 					'{{WRAPPER}} .elementor-icon-list-item, {{WRAPPER}} .elementor-element.sk-list li' => 'justify-content: {{VALUE}};',
+					// Custom counter and marker due to display:flex instead of display: list-item.
 					'{{WRAPPER}} .elementor-element.sk-list li' => 'display: flex; align-items: center; position: relative;',
+					'{{WRAPPER}} elementor-element.sk-list ol' => 'counter-reset: sk-list-counter;',
+					'{{WRAPPER}} .elementor-element.sk-list ol li.sk-custom-count' => 'counter-increment: sk-list-counter;',
+					'{{WRAPPER}} .elementor-element.sk-list ol li.sk-custom-count:before' => 'content: counters(sk-list-counter, ".") ". ";',
+					'{{WRAPPER}} .elementor-element.sk-list ul li.sk-custom-marker:before' => 'content: "\2022"; font-size: x-large;',
 				),
 			)
 		);
