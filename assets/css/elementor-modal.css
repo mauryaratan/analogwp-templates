@@ -127,12 +127,14 @@ button[data-action="save_token"] {
 
 
 #elementor-panel-page-settings-controls > .elementor-control[class*="ang_"],
-#elementor-kit-panel-content-controls > .elementor-control[class*="ang_"] {
+#elementor-kit-panel-content-controls > .elementor-control[class*="ang_"],
+#elementor-panel-page-editor > #elementor-controls > .elementor-control[class*="ang_"] {
 	position: relative;
 }
 
 #elementor-panel-page-settings-controls > .elementor-control[class*="ang_"]:after,
-#elementor-kit-panel-content-controls > .elementor-control[class*="ang_"]:after {
+#elementor-kit-panel-content-controls > .elementor-control[class*="ang_"]:after,
+#elementor-panel-page-editor > #elementor-controls > .elementor-control[class*="ang_"]:after {
 	content: '';
 	position: absolute;
 	top: 0;

@@ -87,6 +87,8 @@ class Typography extends Module {
 		add_action( 'elementor/element/column/section_advanced/before_section_end', array( $this, 'tweak_column_element' ) );
 
 		add_action( 'elementor/element/kit/section_typography/after_section_end', array( $this, 'tweak_typography_section' ), 999, 2 );
+		add_action( 'elementor/element/column/layout/before_section_end', array( $this, 'tweak_column_element_widget_space' ), 999, 2 );
+		add_action( 'elementor/frontend/column/before_render', array( $this, 'add_spacing_class_columns' ) );
 	}
 
 	/**
@@ -456,6 +458,28 @@ class Typography extends Module {
 					'selectors'  => array(
 						"{{WRAPPER}} .elementor-column-gap-{$key} {$elementor_row} > .elementor-column > .elementor-element-populated"
 						=> 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					),
+				)
+			);
+		}
+
+		$spacing = array(
+			'default' => __( 'Default Spacing', 'ang' ),
+			'no'      => __( 'No Spacing', 'ang' ),
+			's'       => __( 'Small Spacing', 'ang' ),
+			'm'       => __( 'Medium Spacing', 'ang' ),
+			'l'       => __( 'Large Spacing', 'ang' ),
+			'xl'      => __( 'Extra Large Spacing', 'ang' ),
+		);
+
+		foreach ( $spacing as $key => $label ) {
+			$element->add_responsive_control(
+				'ang_widget_spacing_' . $key,
+				array(
+					'label'     => $label,
+					'type'      => Controls_Manager::NUMBER,
+					'selectors' => array(
+						"{{WRAPPER}} .ang-widget-space-{$key} .elementor-widget:not(:last-child)" => 'margin-bottom: {{VALUE}}px',
 					),
 				)
 			);
@@ -1158,6 +1182,60 @@ class Typography extends Module {
 		);
 
 		$element->end_injection();
+	}
+
+	/**
+	 * Tweak widget space control.
+	 *
+	 * @since 1.8.1
+	 * @param Element_Base $element Class.
+	 */
+	public function tweak_column_element_widget_space( $element ) {
+		$element->start_injection(
+			array(
+				'of' => 'space_between_widgets',
+				'at' => 'before',
+			)
+		);
+		$element->add_control(
+			'ang_custom_widget_space',
+			array(
+				'label'   => __( 'Custom widget space', 'ang' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'default',
+				'options' => array(
+					'default' => __( 'Default', 'ang' ),
+					'no'      => __( 'No Spacing', 'ang' ),
+					's'       => __( 'Small', 'ang' ),
+					'm'       => __( 'Medium', 'ang' ),
+					'l'       => __( 'Large', 'ang' ),
+					'xl'      => __( 'Extra Large', 'ang' ),
+					'custom'  => __( 'Custom', 'ang' ),
+				),
+			)
+		);
+		$element->end_injection();
+
+		$element->update_responsive_control(
+			'space_between_widgets',
+			array(
+				'condition' => array(
+					'ang_custom_widget_space' => 'custom',
+				),
+			)
+		);
+	}
+
+	/**
+	 * Add class to column element.
+	 *
+	 * @since 1.8.1
+	 * @param \Elementor\Element_Column $element Class instance.
+	 */
+	public function add_spacing_class_columns( \Elementor\Element_Column $element ) {
+		$widget_space_type = 'ang-widget-space-' .
+			$element->get_settings( 'ang_custom_widget_space' );
+		$element->add_render_attribute( '_wrapper', 'class', $widget_space_type );
 	}
 }
 
