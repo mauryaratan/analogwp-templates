@@ -463,6 +463,16 @@ class Typography extends Module {
 			);
 		}
 
+		$element->add_control(
+			'ang_widget_spacing_description',
+			array(
+				'raw'             => __( 'Sets the default space between widgets, overrides the default value set in Elementor > Style > Space Between Widgets.', 'ang' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+				'separator'       => 'before',
+			)
+		);
+
 		$spacing = array(
 			'default' => __( 'Default Spacing', 'ang' ),
 			'no'      => __( 'No Spacing', 'ang' ),
@@ -473,29 +483,23 @@ class Typography extends Module {
 		);
 
 		foreach ( $spacing as $key => $label ) {
-			$element->add_responsive_control(
-				'ang_widget_spacing_' . $key,
-				array(
-					'label'     => $label,
-					'type'      => Controls_Manager::NUMBER,
-					'selectors' => array(
-						"{{WRAPPER}} .ang-widget-space-{$key} .elementor-widget:not(:last-child)" => 'margin-bottom: {{VALUE}}px',
-					),
-				)
-			);
-		}
 
-		$element->add_responsive_control(
-			'ang_widget_spacing',
-			array(
-				'label'       => __( 'Space Between Widgets', 'ang' ),
-				'description' => __( 'Sets the default space between widgets, overrides the default value set in Elementor > Style > Space Between Widgets.', 'ang' ),
-				'type'        => Controls_Manager::NUMBER,
-				'selectors'   => array(
-					'{{WRAPPER}} .elementor-widget:not(:last-child)' => 'margin-bottom: {{VALUE}}px',
+			$id = 'ang_widget_spacing_' . $key;
+
+			$args = array(
+				'label'     => $label,
+				'type'      => Controls_Manager::NUMBER,
+				'selectors' => array(
+					"{{WRAPPER}} .ang-widget-space-{$key} .elementor-widget:not(:last-child)" => 'margin-bottom: {{VALUE}}px',
 				),
-			)
-		);
+			);
+
+			if ( 'default' === $key ) {
+				$id = 'ang_widget_spacing';
+			}
+
+			$element->add_responsive_control( $id, $args );
+		}
 
 		$element->end_controls_section();
 	}
