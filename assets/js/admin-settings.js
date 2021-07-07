@@ -153,4 +153,15 @@
 
 		$('#js-ang-request-discount').on( 'submit', submitDiscountRequest);
 	} );
+
+	// Remove on uninstall check.
+	const removeUnBtn = $( '#remove_on_uninstall' );
+	if ( removeUnBtn.is( ':checked' ) ) {
+		$( 'tr.ang-uninstall-options' ).show();
+	}
+	// Remove on uninstall toggle.
+	$( removeUnBtn ).on( 'click', function() {
+		$( 'tr.ang-uninstall-options' ).toggle( this.checked );
+	} );
+
 }( jQuery, ang_settings_data, wp ) );
